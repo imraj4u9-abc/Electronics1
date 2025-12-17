@@ -30,15 +30,28 @@ jobs:
           sudo yum install docker -y
           sudo systemctl start docker
           sudo systemctl enable docker
-          if [ ! -d electronics-app ]; then
-            git clone https://github.com/imraj4u9-abc/Electronics1.git electronics-app
-          fi
+          
+         set -e
 
-         cd /home/ec2-user/electronics-app || exit
-         git fetch origin
-         git reset --hard origin/master
-         docker compose down || true
-         docker compose up -d --build
+          cd /home/ec2-user
+
+          if [ ! -d electronics-app ]; then
+         git clone https://github.com/imraj4u9-abc/Electronics1.git electronics-app
+         fi
+
+            cd /home/ec2-user/electronics-app
+
+           echo "📂 Files in project directory:"
+           ls -la
+
+           git fetch origin
+            git reset --hard origin/master
+
+            sudo docker compose -f docker-compose.yml down || true
+           sudo docker compose -f docker-compose.yml up -d --build
+
+
+
 
 
 
