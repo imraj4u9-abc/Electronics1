@@ -33,10 +33,12 @@ jobs:
           if [ ! -d electronics-app ]; then
             git clone https://github.com/imraj4u9-abc/Electronics1.git electronics-app
           fi
-          cd electronics-app
-          git pull
-          docker compose down
-          docker compose up -d --build
+
+         cd /home/ec2-user/electronics-app || exit
+         git fetch origin
+         git reset --hard origin/master
+         docker compose down || true
+         docker compose up -d --build
 
 
 
