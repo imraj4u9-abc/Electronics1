@@ -31,23 +31,26 @@ jobs:
           sudo systemctl start docker
           sudo systemctl enable docker
           
-         set -e
+         
+script: |
+  set -e
 
-          cd /home/ec2-user
+  cd /home/ec2-user
 
-         git clone https://github.com/imraj4u9-abc/Electronics1.git electronics-app
-        
+  if [ ! -d electronics-app/.git ]; then
+    echo "Cloning repository..."
+    git clone https://github.com/imraj4u9-abc/Electronics1.git electronics-app
+  else
+    echo "Repository already exists"
+  fi
 
-            cd /home/ec2-user/electronics-app
+  cd /home/ec2-user/electronics-app
 
-           echo "📂 Files in project directory:"
-           ls -la
+  git fetch origin
+  git reset --hard origin/master
 
-           git fetch origin
-            git reset --hard origin/master
-
-            sudo docker compose -f docker-compose.yml down || true
-           sudo docker compose -f docker-compose.yml up -d --build
+  sudo docker compose -f docker-compose.yml down || true
+  sudo docker compose -f docker-compose.yml up -d --build
 
 
 
