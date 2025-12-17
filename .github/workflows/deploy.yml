@@ -35,9 +35,8 @@ jobs:
 
           cd /home/ec2-user
 
-          if [ ! -d electronics-app ]; then
          git clone https://github.com/imraj4u9-abc/Electronics1.git electronics-app
-         fi
+        
 
             cd /home/ec2-user/electronics-app
 
